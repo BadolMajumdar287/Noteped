@@ -1,5 +1,6 @@
 import express from "express"
 import cookieParser from 'cookie-parser'
+import cors from "cors"
 import {config} from "dotenv"
 import { DatabaseConfig } from "./config/mongoose.config.js";
 import { AuthRouter } from "./router/auth.router.js";
@@ -11,6 +12,16 @@ const PORT = process.env.PORT || 4000;
 
 
 const app = express();
+
+
+app.use(cors({
+
+origin:["http://localhost:3000"],
+methods:["GET","POST","PUT","PATCH","DELETE"],
+credentials:true,
+
+}));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

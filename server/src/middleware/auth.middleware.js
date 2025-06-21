@@ -10,7 +10,7 @@ export async function authMiddleware(req,res,next) {
      try {
 
         const sessionKey = req.cookies["session"]
-          
+           
          if(!sessionKey) return sendResponse(res,403,{error: "Session Is Not Valied"});
 
          const user = await UserModel.findById(sessionKey);
@@ -19,7 +19,6 @@ export async function authMiddleware(req,res,next) {
          if(!user) return sendResponse(res,403,{error: "Session Is Not Valied"});
 
           req.user = user;
-          
           
          next();
         

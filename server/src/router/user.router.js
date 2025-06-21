@@ -13,4 +13,4 @@ userRouter.put("/update/name",authMiddleware, U.userUpdateName);
 userRouter.put("/update/email",authMiddleware, U.userUpdateEmail);
 
 //User Update Password
-userRouter.put("/update/password",authMiddleware, U.userUpdatePassword);
+userRouter.put("/update/password",authMiddleware, U.userUpdatePassword); 
