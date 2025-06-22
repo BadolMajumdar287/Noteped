@@ -1,23 +1,21 @@
 "use client"
 import { useState } from "react";
-import axios from "axios";
+import { useAuth } from "@/context/auth.context";
 
-const Register = () => {
+const Signup = () => {
    
     const [name,setname] = useState("");
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
+    const {usersignup} = useAuth();
 
   async function userRegister() {
-    const {data} = await axios.post("http://localhost:5000/auth/register",{name,email,password},{
-      withCredentials:true,
-    })
-    console.log(data);
+    
+    await usersignup(name,email,password);
+    console.log(name,email,password);
+
   }
 
-  // function save(){
-  //   console.log({name,email,password})
-  // }
 
 return(
     <div className="ml-96 mt-40">
@@ -70,4 +68,4 @@ return(
 
 }
 
-export default Register;
+export default Signup;
