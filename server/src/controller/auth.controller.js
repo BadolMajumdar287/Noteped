@@ -50,10 +50,9 @@ export class AuthContrller{
 
         if(!isValied) return sendResponse(res,404,{error: "Invalied Credentials"});
           
-         
           setSessionCookie(res,user._id);
 
-        return sendResponse(res,200,{messsage: "User Login Succesfully"},);
+        return sendResponse(res,200,{messsage: "User Login Succesfully",},);
         
         
         } catch (error) {

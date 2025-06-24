@@ -1,11 +1,9 @@
 import axios from "axios";
 
-
-const Apimaneger = axios.create({
-
+const ApiManager = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE,
     withCredentials: true,
-    
-})
 
-export default Apimaneger;
+});
+
+export default ApiManager;
