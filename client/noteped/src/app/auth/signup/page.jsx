@@ -9,22 +9,12 @@ export default function(){
     const [name,setname] = useState("");
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
-  const {Signup,error,user,succesfully} = useAuth();
-   // console.log({name,email,password})
+    const {Signup,user,error,success} = useAuth();
 
    
    async function handlesignup() {
     
-      try {
-
-        // console.log(succes)
-          const res = await Signup(name,email,password);
-         // console.log(res.data.user)
-          
-      } catch (error) {
-            console.log(error.response.data.error)
-      }
-     
+     await Signup(name,email,password);
      
       
     }
@@ -53,7 +43,7 @@ return(
           onClick={handlesignup}
         >Signup</button>
         <p className="mt-7">{error}</p>
-        <p>{succesfully}</p>
+        <p>{success}</p>
     </div>
          
 )

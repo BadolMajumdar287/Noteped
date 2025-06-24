@@ -1,15 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { useLogin } from "@/context/login.contex";
+import { useAuth } from "@/context/auth.context";
 
 
 export default function(){
 
    const [email,setemail] = useState("");
    const [password,setpassword] = useState("");
-   const {Login,user,error} = useLogin();
-  // console.log(email,password)
+  const {Login,error,success} = useAuth();
+ 
 
   async function handleLogin() {
      await Login(email,password)
@@ -39,8 +39,8 @@ return(
    onClick={handleLogin}
    className="border w-15 h-5 mt-5 ml-25 rounded-2xl pb-6 text-orange-600 bg-cyan-100"
    >Login</button>
-    <p className="mt-15 ml-7 text-cyan-500 text-xs">{user}</p>
-    <p className="mt-15 ml-7 text-blue-500 text-xs" >{error}</p>
+    <p className="mt-15 ml-7 text-cyan-500 text-xs">{error}</p>
+    <p className="mt-15 ml-7 text-blue-500 text-xs" >{success}</p>
     </div>
 )
 
