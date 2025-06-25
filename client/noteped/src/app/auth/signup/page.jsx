@@ -1,23 +1,38 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "@/context/auth.context";
-
+import { toast } from "sonner";
 
 export default function(){
     
     const [name,setname] = useState("");
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
-    const {Signup,user,error,success} = useAuth();
+    const {Signup,error,success} = useAuth();
 
    
    async function handlesignup() {
     
-     await Signup(name,email,password);
+         if(!name) return toast.error("Enter your name")
+         else if(!email) return toast.error("Enter your email")
+        else if(!password) return toast.error("Enter your password")
+
+       await Signup(name,email,password);
      
       
     }
+
+    useEffect(() => {
+     
+        if(success){
+          toast.success(success)
+        }else if(error){
+          toast.error(error)
+        }
+        
+
+    },[error,success])
    
 return(
 

@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "@/context/auth.context";
+import { toast } from "sonner";
+
 
 
 export default function(){
@@ -10,10 +12,23 @@ export default function(){
    const [password,setpassword] = useState("");
   const {Login,error,success} = useAuth();
  
-
+  
   async function handleLogin() {
+
+     if(!email) return toast.error("Enter your email address");
+      else if(!password) return toast.error("Enter your Password");
+
      await Login(email,password)
   }
+
+    useEffect(() => {
+     if(success){
+          toast.success(success)
+       }else if (error){
+          toast.error(error)
+       }
+
+    },[error,success])
 
 return(
     < div className="border w-70 h-48 bg-blue-900 ml-96 mt-30">

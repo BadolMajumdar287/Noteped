@@ -8,11 +8,11 @@ export const Authprovider = ({children}) => {
 
            const [user,setuser] = useState("");
            const [error,seterror] = useState("");
-           const [success,setsuccess] = useState("");
+           const [success,setsuccess] = useState(null);
            const [loading,setloading] = useState("");
            
            
-          // console.log(success)
+          //console.log(success)
          //console.log(setloading)
            const Signup = async (name,email,password) => {
 
@@ -83,7 +83,9 @@ export const Authprovider = ({children}) => {
               FetchSession();
           },[])
 
-
+          //  useEffect(() => {
+          //  console.log("success updated:", success);
+          // }, [success]);
 
 
 return(

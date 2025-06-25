@@ -23,7 +23,7 @@ export class AuthContrller{
        
           const user = await UserModel.create({name,email,password: hashPassword(password)});
         
-          return sendResponse(res,201,{messsage: "Register Succesfully", user});
+          return sendResponse(res,201,{message: "Register Succesfully", user});
 
         } catch (error) {
            console.error(error);
@@ -52,7 +52,7 @@ export class AuthContrller{
           
           setSessionCookie(res,user._id);
 
-        return sendResponse(res,200,{messsage: "User Login Succesfully",},);
+        return sendResponse(res,200,{message: "User Login Succesfully",},);
         
         
         } catch (error) {
