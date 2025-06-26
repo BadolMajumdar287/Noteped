@@ -23,7 +23,7 @@ export class NoteController {
                 
                if(!note) return sendResponse(res,403,{error: "Note Not Create"});
 
-            return sendResponse(res,201,{message: " Noted crated"});
+            return sendResponse(res,201,{message: " Noted crated",note});
             
         } catch (error) {
             console.error(error)
