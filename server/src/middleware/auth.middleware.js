@@ -9,7 +9,7 @@ export async function authMiddleware(req,res,next) {
     
      try {
 
-        const sessionKey = req.cookies["session"]
+        const sessionKey = req.cookies["session"] || req.headers["session"];
            
          if(!sessionKey) return sendResponse(res,403,{error: "Session Is Not Valied"});
 

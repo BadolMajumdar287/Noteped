@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "@/context/auth.context";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 
@@ -11,7 +12,7 @@ export default function(){
    const [email,setemail] = useState("");
    const [password,setpassword] = useState("");
   const {Login,error,success} = useAuth();
- 
+ const router = useRouter()
   
   async function handleLogin() {
 
@@ -24,6 +25,7 @@ export default function(){
     useEffect(() => {
      if(success){
           toast.success(success)
+          router.replace("/note")
        }else if (error){
           toast.error(error)
        }
