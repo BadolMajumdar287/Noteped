@@ -1,17 +1,15 @@
-import { NextResponse,NextRequest } from "next/server";
+import { NextResponse} from "next/server";
 import { cookies } from "next/headers";
 
 export default async function middleware(request) {
  
  try {
 
-       const pathName = await request.nextUrl.pathname
+       const pathName = request.nextUrl.pathname
+       
         const _cookies = await cookies()
         const sessionKey = _cookies.get('session')?.value
       
-        
-   console.log(sessionKey)
-
    
 
 const url = `${process.env.NEXT_PUBLIC_API_BASE}/auth/session`
@@ -23,18 +21,21 @@ const url = `${process.env.NEXT_PUBLIC_API_BASE}/auth/session`
                 "Content-Type": "application/json",
             },
         });
-        const { users } = await res.json();
+        const { user } = await res.json();
+                       
+      
+        // if (user && (pathName === "/auth/login" || pathName === "/auth/signup")) {
+        //     return NextResponse.redirect(new URL(`/notes`, req.nextUrl))
+        // }
 
-    console.log(users);
-        //console.log(users)
-sa
-  //  if (users && pathName.startsWith('/auth')) {
-  //           return NextResponse.redirect(new URL(`/notes`, req.nextUrl))
-  //       }
 
-  //       if (!user && pathName.startsWith('/notes')) {
-  //           return NextResponse.redirect(new URL(`/auth/login`, req.nextUrl))
-  //       }
+        if (user && pathName.startsWith('/auth')) {
+            return NextResponse.redirect(new URL(`/note`, request.nextUrl.origin))
+        }
+
+        if (!user && pathName.startsWith('/note')) {
+            return NextResponse.redirect(new URL(`/auth/login`, request.nextUrl.origin))
+        }
         return NextResponse.next();
   
  } catch (error) {
@@ -50,7 +51,7 @@ sa
 }
 
 export const config = {
-  matcher: ["/about/:path*", "/note/:path*","/auth/:path*"],
+  matcher: [ "/note/:path*","/auth/:path*"],
 };
 
 

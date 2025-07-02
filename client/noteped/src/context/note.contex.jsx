@@ -7,7 +7,7 @@ const Notecontext = createContext();
 
 export const NoteProvider = ({children}) =>{
 
-    const [note,setnote] = useState("");
+    const [note,setnote] = useState(null);
     const [error,seterror] = useState("");
     const [success,setsuccess] = useState("");
     const [allNote,setallNote] = useState([])
@@ -60,7 +60,7 @@ export const NoteProvider = ({children}) =>{
         setsuccess(res.data?.message);
         
     } catch (error) {
-        seterror(res.response?.data?.error)
+        seterror(error.response?.data?.error || error.message)
     }
 
 
@@ -83,7 +83,7 @@ export const NoteProvider = ({children}) =>{
 
 
 
-   const noteDelete = async (id,title,content) => {
+   const noteDelete = async (id) => {
 
                try {
 
@@ -99,7 +99,7 @@ export const NoteProvider = ({children}) =>{
    }
 
 return(
-    <Notecontext.Provider value={{note,error,success,allNote,CreateNote,GetAllNote,noteUpdate,noteDelete}}>
+    <Notecontext.Provider value={{note,error,success,allNote,CreateNote,GetAllNote,noteGetById,noteUpdate,noteDelete}}>
         {children}
     </Notecontext.Provider>
 )

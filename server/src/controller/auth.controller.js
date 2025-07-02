@@ -49,7 +49,7 @@ export class AuthContrller{
         const isValied = comparePassword(password,user.password);
 
         if(!isValied) return sendResponse(res,404,{error: "Invalied Credentials"});
-          
+         
           setSessionCookie(res,user._id.toString());
 
         return sendResponse(res,200,{message: "User Login Succesfully",},);

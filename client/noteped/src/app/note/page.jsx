@@ -2,19 +2,31 @@
 import { useNote } from "@/context/note.contex"
 import { useAuth } from "@/context/auth.context";
 import { useState } from "react"
+import Link from "next/link";
+
 
 export default function(){
         const [title,settitle] = useState("");
         const [content,setcontent] = useState("");
-        const {note,allNote,success,error,CreateNote} = useNote();
-        const {user} = useAuth();
+        const {note,allNote,success,error,CreateNote,noteDelete,noteUpdate} = useNote();
+        const {user,Logout} = useAuth();
         async function handleCreateNote(){
 
                 await CreateNote(title,content);
 
           }
         
- 
+     async function handleLogout() {
+         
+        await Logout();
+     }
+    
+
+      async function hundleDelete(id) {
+             await noteDelete(id);
+      }
+
+      
 
     return(
         <div>
@@ -38,24 +50,34 @@ export default function(){
         </div>
        </div>
         <button className="border text-cyan-500 w-25 h-6 rounded-2xl ml-96" onClick={handleCreateNote}>CreateNote</button>
-       
+        <button  onClick={handleLogout} className="border font-normal w-17 rounded-2xl ml-96 mb-80 text-cyan-300 bg-blue-500">Logout</button>
         
-
-
         {
             allNote.map((item,i) => {
-
+                
                 return(
-                    < div key={i} className="text-center ">
-                      
-                      <h4 className="text-fuchsia-500">{item.title}</h4>
-                      <h5>{item.content}</h5>
-
-
+                    <div  key={`note_${i}`} className="ml-28">
+                    <Link href={`/note/${item._id}`}>
+                    
+                    <div className="text-center ">
+                        <h1 className="text-emerald-600">{item.title}</h1>
+                        <h2 className="text-cyan-400">{item.content}</h2>
+                    </div>
+                    
+                    </Link>
+                    <button className="text-red-500 border " onClick={() => hundleDelete(item._id)}>Delete</button>
                     </div>
                 )
+
             })
         }
+
+
+
+
+
+
+
         </div>
     )
 
