@@ -1,36 +1,56 @@
 "use client"
 import { useNote } from "@/context/note.contex"
-import { useAuth } from "@/context/auth.context";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link";
 
 
 export default function(){
+       const [notetoEdit,setnotetoEdit] = useState(null)
         const [title,settitle] = useState("");
         const [content,setcontent] = useState("");
         const {note,allNote,success,error,CreateNote,noteDelete,noteUpdate} = useNote();
-        const {user,Logout} = useAuth();
+        
         async function handleCreateNote(){
 
                 await CreateNote(title,content);
 
           }
-        
-     async function handleLogout() {
-         
-        await Logout();
-     }
-    
+     
 
-      async function hundleDelete(id) {
-             await noteDelete(id);
+     
+
+      async function hundleupdateNote() {
+          
+        if(notetoEdit){
+            await   noteUpdate(notetoEdit._id,title,content)
+            setnotetoEdit(null);
+                clearfrom()
+        }
+        
       }
 
-      
+       async function hundleDelete(id) {
+             await noteDelete(id);
+      }
+         function clearfrom(){
+             settitle("")
+             setcontent("")
+         }
+      useEffect(()=> {
+        
+          if(notetoEdit){
+              settitle(notetoEdit.title)
+              setcontent(notetoEdit.content);
+               
+          }else{
+            clearfrom()
+          }
+
+      },[notetoEdit])
 
     return(
         <div>
-        <p className="text-center text-blue-600">{user.name}</p>
+       
    <h1 className="text-center text-4xl text-pink-400">Note</h1>
       <div className="text-center">
         <div className="mt-5" >
@@ -50,7 +70,11 @@ export default function(){
         </div>
        </div>
         <button className="border text-cyan-500 w-25 h-6 rounded-2xl ml-96" onClick={handleCreateNote}>CreateNote</button>
-        <button  onClick={handleLogout} className="border font-normal w-17 rounded-2xl ml-96 mb-80 text-cyan-300 bg-blue-500">Logout</button>
+       {
+        notetoEdit && (
+              <button onClick={hundleupdateNote} className="text-amber-500">update</button>
+        )
+       }
         
         {
             allNote.map((item,i) => {
@@ -65,7 +89,9 @@ export default function(){
                     </div>
                     
                     </Link>
-                    <button className="text-red-500 border " onClick={() => hundleDelete(item._id)}>Delete</button>
+                    <button className="text-red-400" onClick={() => hundleDelete(item._id)}>delete</button>
+                    <button className="text-amber-200 pl-5" onClick={() => setnotetoEdit(item)}>edit</button>
+
                     </div>
                 )
 
@@ -83,4 +109,4 @@ export default function(){
 
 
 
-} 
+}  

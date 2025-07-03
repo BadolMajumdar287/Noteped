@@ -9,15 +9,9 @@ export default function NoteDetail(){
    
     const [loading,setloading] = useState(true)
     const params = useParams();
-    const {noteGetById,note,noteUpdate} = useNote();
-   const [titleEdit,settitleEdit] = useState(note?.title || "")
-   const [contentEdit,setcontentEdit] = useState(note?.content || "");
+    const {noteGetById,note} = useNote();
+   
     //console.log(params.id)
-
-      async function hundleNoteUpdate(id,title,content) {
-           
-        await noteUpdate(id,title,content)
-      }
 
     useEffect(() => {
              async function load() {
@@ -35,13 +29,7 @@ export default function NoteDetail(){
   }
 
     return(
-      <div>
-  
-           <div className="mt-10">
-                  <input className="text-amber-300 border" value={titleEdit} onChange={(e) => settitleEdit(e.target.value)}/>
-                  <input className="text-amber-300 border" value={contentEdit} onChange={(e) => setcontentEdit(e.target.value)} />
-                  <button onClick={() => hundleNoteUpdate(params.id,titleEdit,contentEdit)}>save</button>
-           </div>
+    <div>
          
            <div className="mt-44">
               <h1>{note?.title}</h1>

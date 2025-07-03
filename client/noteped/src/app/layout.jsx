@@ -1,5 +1,6 @@
 import { Toaster } from "sonner";
 import "./globals.css";
+
 import { Authprovider } from "@/context/auth.context";
 
 
